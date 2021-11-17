@@ -8,50 +8,127 @@
  * https://github.com/facebook/react-native
  */
 
-import React, { Component } from 'react';
-import { Platform, StyleSheet, Text, View } from 'react-native';
-import TinderCard from 'react-native-tinder-card';
+import React, {Component} from 'react';
+import {
+  StyleSheet,
+  Text,
+  View,
+  Dimensions,
+  Image,
+  Animated,
+  PanResponder,
+} from 'react-native';
+import TinderSwipe from 'react-native-tinder-card';
+import {Button, Chip, FAB} from 'react-native-paper';
 
-export default class App extends Component<{}> {
-  state = {
-    status: 'starting',
-    message: '--'
-  };
-  componentDidMount() {
-    TinderCard.sampleMethod('Testing', 123, (message) => {
-      this.setState({
-        status: 'native callback received',
-        message
-      });
-    });
+const users = [
+  {
+    id: '1',
+    title: 'Lauren',
+    subtitle: '22',
+    pictures: [
+      require('./assets/2.jpg'),
+      require('./assets/3.jpg'),
+      require('./assets/4.jpg'),
+      require('./assets/4.jpg'),
+      require('./assets/4.jpg'),
+      require('./assets/4.jpg'),
+    ],
+  },
+  {
+    id: '2',
+    uri: require('./assets/2.jpg'),
+    pictures: [
+      require('./assets/1.jpg'),
+      require('./assets/3.jpg'),
+      require('./assets/4.jpg'),
+    ],
+  },
+  {id: '3', uri: require('./assets/3.jpg')},
+  {id: '4', uri: require('./assets/4.jpg')},
+  {id: '5', uri: require('./assets/5.jpg')},
+];
+
+const {width, height} = Dimensions.get('screen');
+
+export default class App extends Component {
+  constructor(props) {
+    super(props);
+    this.card = React.createRef();
   }
+
+  renderDetails = item => {
+    return (
+      <View style={{padding: 20}}>
+        <Text>{JSON.stringify(item)}</Text>
+        <Button
+          mode={'contained'}
+          onPress={() => this.card.current.showGallery()}>
+          top
+        </Button>
+      </View>
+    );
+  };
+
   render() {
     return (
-      <View style={styles.container}>
-        <Text style={styles.welcome}>☆TinderCard example☆</Text>
-        <Text style={styles.instructions}>STATUS: {this.state.status}</Text>
-        <Text style={styles.welcome}>☆NATIVE CALLBACK MESSAGE☆</Text>
-        <Text style={styles.instructions}>{this.state.message}</Text>
+      <View style={{flex: 1, backgroundColor: 'cyan'}}>
+        <View style={{height: 100}}></View>
+        <TinderSwipe
+          ref={this.card}
+          data={users[0]}
+          width={width - 20}
+          height={height - 200}
+          onScrollToDetails={() => console.log('details')}
+          tags={[
+            {title: 'demo', color: 'cyan', icon: 'information'},
+            {title: 'demo', color: '', icon: 'information'},
+            {title: 'demo', color: '', icon: 'information'},
+            {title: 'demo', color: '', icon: 'information'},
+          ]}
+          renderTag={({title, color, icon}, index) => (
+            <Chip
+              key={index}
+              style={color && {backgroundColor: color}}
+              mode={'outlined'}
+              icon={icon}
+              color={color}
+              onPress={() => console.log(title)}>
+              {title}
+            </Chip>
+          )}
+          actions={['superlike', 'like', 'dislike']}
+          renderAction={(action, index) => {
+            const {
+              color: backgroundColor,
+              icon,
+              small,
+            } = action === 'superlike'
+              ? {color: 'purple', icon: 'heart-flash'}
+              : action === 'like'
+              ? {color: 'red', icon: 'heart'}
+              : {color: 'black', icon: 'close', small: true};
+
+            return (
+              <FAB
+                key={index}
+                icon={icon}
+                small={small}
+                style={{backgroundColor}}
+                onPress={() => this.card.current.showDetails()}
+              />
+            );
+          }}
+          renderDetails={this.renderDetails}
+        />
+
+        <View
+          style={{
+            height: 100,
+            flexDirection: 'row',
+            alignSelf: 'center',
+          }}></View>
       </View>
     );
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
-  },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
-  },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
-  },
-});
