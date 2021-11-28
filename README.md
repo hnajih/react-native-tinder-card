@@ -12,6 +12,6 @@
 ```javascript
 import TinderCard from 'react-native-tinder-card';
 
-// TODO: What to do with the module?
-TinderCard;
 ```
+
+[Example](https://github.com/hnajih/react-native-tinder-card/blob/master/example/App.js)
