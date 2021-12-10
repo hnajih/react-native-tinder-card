@@ -1,7 +1,7 @@
 {
   "name": "react-native-tinder-card",
   "title": "React Native Tinder Card",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "TODO",
   "main": "index.js",
   "files": [
@@ -9,7 +9,8 @@
     "android",
     "index.js",
     "ios",
-    "react-native-tinder-card.podspec"
+    "react-native-tinder-card.podspec",
+    "src/*"
   ],
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
