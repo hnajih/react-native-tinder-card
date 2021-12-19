@@ -27,26 +27,20 @@ const users = [
     title: 'Lauren',
     subtitle: '22',
     pictures: [
-      require('./assets/2.jpg'),
-      require('./assets/3.jpg'),
-      require('./assets/4.jpg'),
-      require('./assets/4.jpg'),
-      require('./assets/4.jpg'),
-      require('./assets/4.jpg'),
+      {uri: 'https://dummyimage.com/400x600/1071e8/ffffff.png&text=1'},
+      {uri: 'https://dummyimage.com/400x600/ed481a/ffffff.png&text=2'},
+      {uri: 'https://dummyimage.com/400x600/10e626/ffffff.png&text=3'},
+      {uri: 'https://dummyimage.com/400x600/1071e8/ffffff.png&text=4'},
     ],
   },
   {
     id: '2',
-    uri: require('./assets/2.jpg'),
     pictures: [
-      require('./assets/1.jpg'),
-      require('./assets/3.jpg'),
-      require('./assets/4.jpg'),
+      {uri: 'https://dummyimage.com/400x600/1071e8/ffffff.png&text=1'},
+      {uri: 'https://dummyimage.com/400x600/ed481a/ffffff.png&text=2'},
+      {uri: 'https://dummyimage.com/400x600/10e626/ffffff.png&text=3'},
     ],
   },
-  {id: '3', uri: require('./assets/3.jpg')},
-  {id: '4', uri: require('./assets/4.jpg')},
-  {id: '5', uri: require('./assets/5.jpg')},
 ];
 
 const {width, height} = Dimensions.get('screen');
